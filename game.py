@@ -22,12 +22,18 @@ class Game:
         self.player = Player_Sprite(player_position.x, player_position.y)
         self.sol = tmx_data.get_object_by_name("sol")
         # definir une liste qui va stocker mec collision
-        self.ground = []
-
-        for obj in tmx_data.objects:
-            if obj.type == "collision":
-                self.ground.append(pygame.Rect(
-                    obj.x, obj.y, obj.width, obj.height))
+        # mapPlay = load_pygame(get_map(stats['map']))
+        # self.ground = []
+        
+        # for obj in tmx_data.objects:
+        #     if obj.type == "collision":
+        #         self.ground.append(pygame.Rect(
+        #             obj.x, obj.y, obj.width, obj.height))
+        # self.walls = list()
+        # for object in mapPlay.objects:
+        #     self.walls.append(pygame.Rect(
+        #     object.x, object.y,
+        #     object.width, object.height))
 
         self.gravity = (0, 10)
         self.resistance = (0, 0)
@@ -39,6 +45,10 @@ class Game:
         self.group.add(self.player)
 
         self.pressed = {}
+        
+    # def init_screen(width, height, mode):
+    #     screen = pygame.display.set_mode((int(width), int(height)), mode)
+    #     return screen
 
     def move(self):
         if self.pressed.get(pygame.K_RIGHT):
@@ -48,6 +58,7 @@ class Game:
 
     def gravity_game(self):
         self.player.rect.y += self.gravity[1] + self.resistance[1]
+        
 
     def update(self):
         self.group.update()
