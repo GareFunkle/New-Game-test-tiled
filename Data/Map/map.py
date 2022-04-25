@@ -29,8 +29,8 @@ class MapManager:
 
     def check_collision(self):
         for sprite in self.get_group().sprites():
-            if sprite.feet.collidelist(self.get_ground()) > +0.1:
-                sprite.move_back()
+            if sprite.feet.collidelist(self.get_ground()):
+                self.player.sprite.move_back()
                 self.player.rect
                 self.resistance = (0, -10)
                 self.collision_sol = True
@@ -43,9 +43,9 @@ class MapManager:
 
     def teleport_player(self, name):
         point = self.get_object(name)
-        self.player.position[0] = point.x
-        self.player.position[1] = point.y
-        self.player.save_location()
+        self.player.sprite.position[0] = point.x
+        self.player.sprite.position[1] = point.y
+        self.player.sprite.save_location()
 
     def register_map(self, name):
         # charger la carte
@@ -62,10 +62,10 @@ class MapManager:
                 ground.append(pygame.Rect(
                     obj.x, obj.y, obj.width, obj.height))
 
-                # dessiner ke groupe de calques
+        # dessiner ke groupe de calques
         group = pyscroll.PyscrollGroup(
             map_layer=map_layer, default_layer=3)
-        group.add(self.player)
+        group.add(self.player.sprite)
 
         # creer un objet map
         self.maps[name] = Map(name, ground, group, tmx_data)
@@ -86,7 +86,7 @@ class MapManager:
 
     def draw(self):
         self.get_group().draw(self.screen)
-        self.get_group().center(self.player.rect.center)
+        self.get_group().center(self.player.sprite.rect.center)
 
     def update(self):
         self.get_group().update()

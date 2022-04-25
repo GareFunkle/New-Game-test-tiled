@@ -1,8 +1,10 @@
 import pygame
 import pytmx
 import pyscroll
-from animatesprite.animatesprite import Player_Sprite
-from map import MapManager
+from characters.Player.player import Player
+from Data.Map.map import MapManager
+import Data.data as data
+import Data.settings as settings
 
 
 class Game:
@@ -10,19 +12,14 @@ class Game:
     def __init__(self):
         # creation de la fenetre du jeu
         self.screen = pygame.display.set_mode((1260, 700))
-        pygame.display.set_caption("Pygame test")
-
+        pygame.display.set_caption(data.GAME_NAME)
 
         # generer un joueur
-        self.player = Player_Sprite(0, 0)
+        self.player = Player()
         self.map_manager = MapManager(self.screen, self.player)
 
-
-
-
-
         self.pressed = {}
-        
+
     # def init_screen(width, height, mode):
     #     screen = pygame.display.set_mode((int(width), int(height)), mode)
     #     return screen
@@ -39,7 +36,7 @@ class Game:
         # if self.pressed.get(pygame.K_LSHIFT):
         #     self.player.run()
         if self.pressed.get(pygame.K_SPACE):
-            self.player.status = "attack"
+            self.player.sprite.status = "attack"
 
     def update(self):
         self.map_manager.update()
@@ -52,11 +49,11 @@ class Game:
 
         while running:
 
-            self.player.save_location()
+            self.player.sprite.save_location()
             self.move()
             self.update()
             self.map_manager.draw()
-            self.player.animate()
+            self.player.sprite.animate()
             pygame.display.flip()
 
             for event in pygame.event.get():
@@ -68,7 +65,7 @@ class Game:
                     self.pressed[event.key] = True
 
                 elif event.type == pygame.KEYUP:
-                    self.player.status = 'idle'
+                    self.player.sprite.status = 'idle'
                     self.pressed[event.key] = False
 
-            clock.tick(60)
+            clock.tick(settings.FPS)

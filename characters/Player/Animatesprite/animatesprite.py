@@ -1,10 +1,10 @@
 import pygame
-from animatesprite.Support_Animation.support import import_folder
+from Data.Support_Animation.support import import_folder
 
 
 class Player_Sprite(pygame.sprite.Sprite):
 
-    def __init__(self, x, y, speed_walk=3, speed_run=5,  jump=0, jump_high=0, jump_down=5, number_jump=0, to_jump=False):
+    def __init__(self, x, y):
         super().__init__()
         self.import_character_assets()
         self.frame_index = 0
@@ -18,67 +18,15 @@ class Player_Sprite(pygame.sprite.Sprite):
         self.on_ceiling = False
         self.on_left = False
         self.on_right = False
-        self.sprite = pygame.image.load('assets/PLAYER/idle/idle.png')
-        self.image.set_colorkey([0, 0, 0])
-        self.rect = self.image.get_rect()
+        # self.sprite = pygame.image.load('assets/PLAYER/idle/idle.png')
         self.position = [x, y]
-        self.speed_walk = speed_walk
-        self.speed_run = speed_run
+        self.image.set_colorkey([0, 0, 0])
         self.feet = pygame.Rect(0, 0, self.rect.width * 0.5, 12)
         self.old_position = self.position.copy()
 
-        # jump
-        self.jump = jump
-        self.jump_high = jump_high
-        self.jump_down = jump_down
-        self.number_jump = number_jump
-        self.to_jump = to_jump
-
-    def move_jump(self):
-        if self.to_jump:
-            if self.jump_high >= 50:
-                self.jump_down -= 1.5
-                self.jump = self.jump_down
-                self.status = 'jump'
-                self.animation_speed = 0.2
-
-            else:
-                self.jump_high += 1
-                self.jump = self.jump_high
-                self.status = 'jump'
-                self.animation_speed = 0.3
-
-            if self.jump_down < 0:
-                self.jump_high = 0
-                self.jump_down = 5
-                self.to_jump = False
-                self.status = 'idle'
-        self.rect.y = self.rect.y - (10 * (self.jump / 2))
 
     def save_location(self):
         self.old_position = self.position.copy()
-
-    def move_right(self):
-        self.facing_right = True
-        self.position[0] += self.speed_walk
-        self.status = 'run'
-        self.animation_speed = 0.35
-
-    def move_left(self):
-        self.facing_right = False
-        self.position[0] -= self.speed_walk
-        self.status = 'run'
-        self.animation_speed = 0.35
-    
-    def run_right(self):
-        self.position[0] += self.speed_run
-        self.status = 'run'
-        self.animation_speed = 0.55
-
-    def run_left(self):
-        self.position[0] -= self.speed_run
-        self.status = 'run'
-        self.animation_speed = 0.55
 
 
     def update(self):
