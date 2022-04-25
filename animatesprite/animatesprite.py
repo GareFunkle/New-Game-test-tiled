@@ -70,11 +70,15 @@ class Player_Sprite(pygame.sprite.Sprite):
         self.status = 'run'
         self.animation_speed = 0.35
     
-    def run(self):
+    def run_right(self):
         self.position[0] += self.speed_run
         self.status = 'run'
         self.animation_speed = 0.55
 
+    def run_left(self):
+        self.position[0] -= self.speed_run
+        self.status = 'run'
+        self.animation_speed = 0.55
 
 
     def update(self):

@@ -1,6 +1,4 @@
 from dataclasses import dataclass
-from tokenize import group
-from turtle import update
 import pygame
 import pytmx
 import pyscroll
@@ -9,7 +7,7 @@ import pyscroll
 @dataclass
 class Map:
     name: str
-    ground: list[pygame.Rect]
+    ground:list([pygame.Rect])
     group: pyscroll.PyscrollGroup
     tmx_data: pytmx.TiledMap
 
@@ -31,7 +29,7 @@ class MapManager:
 
     def check_collision(self):
         for sprite in self.get_group().sprites():
-            if sprite.feet.collidelist(self.get_ground()):
+            if sprite.feet.collidelist(self.get_ground()) > +0.1:
                 sprite.move_back()
                 self.player.rect
                 self.resistance = (0, -10)

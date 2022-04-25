@@ -33,18 +33,13 @@ class Game:
         if self.pressed.get(pygame.K_LEFT):
             self.player.move_left()
         if self.pressed.get(pygame.K_UP):
-            # self.player.move_jump()
             self.player.to_jump = True
             self.player.number_jump += 1
 
-        if self.pressed.get(pygame.K_LSHIFT):
-            self.player.run()
+        # if self.pressed.get(pygame.K_LSHIFT):
+        #     self.player.run()
         if self.pressed.get(pygame.K_SPACE):
             self.player.status = "attack"
-        
-
-
-        
 
     def update(self):
         self.map_manager.update()
