@@ -30,19 +30,30 @@ class MapManager:
     # verification des type de collisions venan de tiled
     def check_collision(self):
         for sprite in self.get_group().sprites():
-            if sprite.feet.collidelist(self.get_ground()) > +20:
+            if sprite.feet.collidelist(self.get_ground()):
                 sprite.move_back()
+                self.resistance = (0, -10)
+                self.collision_sol = True
 
+            if self.player.to_jump and self.collision_sol:
+                self.player.move_jump()   
+
+            
+            
     def draw_collision(self):
         for collision in self.get_ground():
-            pygame.draw.rect(self.screen, (255, 255, 255, 255), collision)
+            pygame.draw.rect(self.screen, (64, 64, 64, 0), collision)
 
-    def test_collision(self):
-        self.resistance = (0, -10)
-        self.collision_sol = True
+    # def test_collision(self):
+    #     # for sol in self.get_ground():
+    #     if sol.rect.colliderect(self.player.rect):
+    #         self.resistance = (0, -10)
+    #         self.collision_sol = True
 
-        if self.player.to_jump and self.collision_sol:
-            self.player.move_jump()
+    #     if self.player.to_jump and self.collision_sol:
+    #         self.player.move_jump()        
+            
+
 
     def gravity_game(self):
         self.player.sprite.rect.y += self.gravity[1] + self.resistance[1]
@@ -98,4 +109,4 @@ class MapManager:
         self.get_group().update()
         self.gravity_game()
         self.check_collision()
-        self.test_collision()
+        # self.test_collision()
