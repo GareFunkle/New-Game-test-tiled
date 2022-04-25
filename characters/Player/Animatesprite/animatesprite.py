@@ -18,13 +18,12 @@ class Player_Sprite(pygame.sprite.Sprite):
         self.on_ceiling = False
         self.on_left = False
         self.on_right = False
-        # self.sprite = pygame.image.load('assets/PLAYER/idle/idle.png')
         self.position = [x, y]
         self.image.set_colorkey([0, 0, 0])
-        self.feet = pygame.Rect(0, 0, self.rect.width * 0.5, 12)
+        self.feet = pygame.Rect(0, 0, self.rect.width * 0.1, 12)
         self.old_position = self.position.copy()
 
-
+    # sauvegarde la position de mon joueur 
     def save_location(self):
         self.old_position = self.position.copy()
 

@@ -11,7 +11,7 @@ class Game:
 
     def __init__(self):
         # creation de la fenetre du jeu
-        self.screen = pygame.display.set_mode((1260, 700))
+        self.screen = pygame.display.set_mode((settings.DISPLAY_X, settings.DISPLAY_Y))
         pygame.display.set_caption(data.GAME_NAME)
 
         # generer un joueur

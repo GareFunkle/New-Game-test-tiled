@@ -7,7 +7,7 @@ import pyscroll
 @dataclass
 class Map:
     name: str
-    ground:list([pygame.Rect])
+    ground: list([pygame.Rect])
     group: pyscroll.PyscrollGroup
     tmx_data: pytmx.TiledMap
 
@@ -27,20 +27,27 @@ class MapManager:
 
         self.teleport_player("player")
 
+    # verification des type de collisions venan de tiled
     def check_collision(self):
         for sprite in self.get_group().sprites():
-            if sprite.feet.collidelist(self.get_ground()):
-                self.player.sprite.move_back()
-                self.player.rect
-                self.resistance = (0, -10)
-                self.collision_sol = True
+            if sprite.feet.collidelist(self.get_ground()) > +20:
+                sprite.move_back()
+
+    def draw_collision(self):
+        for collision in self.get_ground():
+            pygame.draw.rect(self.screen, (255, 255, 255, 255), collision)
+
+    def test_collision(self):
+        self.resistance = (0, -10)
+        self.collision_sol = True
 
         if self.player.to_jump and self.collision_sol:
             self.player.move_jump()
 
     def gravity_game(self):
-        self.player.rect.y += self.gravity[1] + self.resistance[1]
+        self.player.sprite.rect.y += self.gravity[1] + self.resistance[1]
 
+    # positionne mon joueur a la position choisie sur tiled
     def teleport_player(self, name):
         point = self.get_object(name)
         self.player.sprite.position[0] = point.x
@@ -79,16 +86,16 @@ class MapManager:
     def get_ground(self):
         return self.get_map().ground
 
-
-
     def get_object(self, name):
         return self.get_map().tmx_data.get_object_by_name(name)
 
     def draw(self):
         self.get_group().draw(self.screen)
         self.get_group().center(self.player.sprite.rect.center)
+        self.draw_collision()
 
     def update(self):
         self.get_group().update()
-        self.check_collision()
         self.gravity_game()
+        self.check_collision()
+        self.test_collision()
