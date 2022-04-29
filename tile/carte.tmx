@@ -136,7 +136,7 @@
 </data>
  </layer>
  <objectgroup color="#ff96c8" id="6" name="Objects">
-  <object id="1" name="player" x="192.667" y="230.068">
+  <object id="1" name="player" x="192.667" y="150.12">
    <point/>
   </object>
   <object id="4" name="sol" type="collision" x="1.33333" y="358" width="655.667" height="347"/>

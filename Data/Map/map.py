@@ -2,6 +2,7 @@ from dataclasses import dataclass
 import pygame
 import pytmx
 import pyscroll
+from Data.Map.sol import Sol
 
 
 @dataclass
@@ -22,21 +23,22 @@ class MapManager:
         self.gravity = (0, 10)
         self.resistance = (0, 0)
         self.collision_sol = False
+        self.sol = Sol()
 
         self.register_map("carte")
 
         self.teleport_player("player")
 
-    # verification des type de collisions venan de tiled
+    # verification des types de collisions venan de tiled
     def check_collision(self):
         for sprite in self.get_group().sprites():
-            if sprite.feet.collidelist(self.get_ground()):
+            if sprite.feet.collidelist(self.get_ground()) > -1:
                 sprite.move_back()
-                self.resistance = (0, -10)
-                self.collision_sol = True
+            #     self.resistance = (0, -10)
+            #     self.collision_sol = True
 
-            if self.player.to_jump and self.collision_sol:
-                self.player.move_jump()   
+            # if self.player.to_jump and self.collision_sol:
+            #     self.player.move_jump()   
 
             
             
@@ -45,8 +47,7 @@ class MapManager:
             pygame.draw.rect(self.screen, (64, 64, 64, 0), collision)
 
     # def test_collision(self):
-    #     # for sol in self.get_ground():
-    #     if sol.rect.colliderect(self.player.rect):
+    #     if self.sol.rect.colliderect(self.player.rect):
     #         self.resistance = (0, -10)
     #         self.collision_sol = True
 
@@ -56,7 +57,7 @@ class MapManager:
 
 
     def gravity_game(self):
-        self.player.sprite.rect.y += self.gravity[1] + self.resistance[1]
+        self.player.rect.y += self.gravity[1] + self.resistance[1]
 
     # positionne mon joueur a la position choisie sur tiled
     def teleport_player(self, name):
@@ -72,7 +73,7 @@ class MapManager:
         map_layer = pyscroll.orthographic.BufferedRenderer(
             map_data, self.screen.get_size())
 
-        # definir une liste qui va stocker mec collision
+        # definir une liste qui va stocker mes collision
         ground = []
 
         for obj in tmx_data.objects:
@@ -106,7 +107,8 @@ class MapManager:
         self.draw_collision()
 
     def update(self):
-        self.get_group().update()
-        self.gravity_game()
+        # self.get_group().update()
+        # self.gravity_game()
         self.check_collision()
         # self.test_collision()
+        

@@ -44,7 +44,8 @@ class Game:
 # boucle du jeu
     def run(self):
         clock = pygame.time.Clock()
-
+        self.map_manager.get_group().update()
+        
         running = True
 
         while running:
@@ -53,6 +54,10 @@ class Game:
             self.move()
             self.update()
             self.map_manager.draw()
+            self.map_manager.gravity_game()
+            # self.map_manager.test_collision()
+            print(self.map_manager.get_ground())
+            
             self.player.sprite.animate()
             pygame.display.flip()
 
