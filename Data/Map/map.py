@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-
 import pygame
 import pytmx
 import pyscroll
@@ -24,9 +23,8 @@ class MapManager:
         self.gravity = (0, 10)
         self.resistance = (0, 0)
         self.collision_sol = False
-
+        
         self.register_map("carte")
-
         self.teleport_player("player")
 
     # verification des types de collision en provenance de tiled
@@ -34,20 +32,12 @@ class MapManager:
         for sprite in self.get_group().sprites():
             if sprite.feet.collidelist(self.get_ground()) > -1:
                 sprite.move_back()
-            #     self.resistance = (0, -10)
-            #     self.collision_sol = True
-
-            # if self.player.to_jump and self.collision_sol:
-            #     self.player.move_jump()
 
     def draw_collision(self):
         for collision in self.get_ground():
             pygame.draw.rect(self.screen, (64, 64, 64, 0), collision)
 
-    # def test_collision(self):
-    #     if self.sol.rect.colliderect(self.player.rect):
-    #         self.resistance = (0, -10)
-    #         self.collision_sol = True
+
 
     def move_jump(self):
         if self.player.to_jump and self.collision_sol:
@@ -56,7 +46,7 @@ class MapManager:
 
 
     def gravity_game(self):
-        self.player.sprite.rect.y += self.gravity[1] + self.resistance[1]
+        self.player.rect.y += self.gravity[1] + self.resistance[1]
 
     # positionne mon joueur a la position choisie sur tiled
     def teleport_player(self, name):
@@ -79,10 +69,12 @@ class MapManager:
             if obj.type == "collision":
                 ground.append(pygame.Rect(
                     obj.x, obj.y, obj.width, obj.height))
-            else:
+            self.rect = pygame.Rect(obj.x, obj.y, obj.width, obj.height)     
+            if self.rect.colliderect(self.player.sprite.rect):
                 self.resistance = (0, -10)
                 self.collision_sol = True
 
+ 
 
         # dessiner ke groupe de calques
         group = pyscroll.PyscrollGroup(
@@ -110,7 +102,7 @@ class MapManager:
         self.draw_collision()
 
     def update(self):
-        self.get_group().update()
+        # self.get_group().update()
         self.gravity_game()
         self.check_collision()
         # self.test_collision()
