@@ -1,6 +1,4 @@
 import pygame
-import pytmx
-import pyscroll
 from characters.Player.player import Player
 from Data.Map.map import MapManager
 import Data.data as data
@@ -33,8 +31,6 @@ class Game:
             self.player.to_jump = True
             self.player.number_jump += 1
 
-        # if self.pressed.get(pygame.K_LSHIFT):
-        #     self.player.run()
         if self.pressed.get(pygame.K_SPACE):
             self.player.sprite.status = "attack"
 
@@ -44,7 +40,7 @@ class Game:
 # boucle du jeu
     def run(self):
         clock = pygame.time.Clock()
-        self.map_manager.get_group().update()
+        # self.map_manager.get_group().update()
         
         running = True
 
@@ -54,9 +50,8 @@ class Game:
             self.move()
             self.update()
             self.map_manager.draw()
-            self.map_manager.gravity_game()
-            # self.map_manager.test_collision()
-            print(self.map_manager.get_ground())
+
+            # print(self.map_manager.get_ground())
             
             self.player.sprite.animate()
             pygame.display.flip()

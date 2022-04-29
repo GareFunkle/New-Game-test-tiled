@@ -29,4 +29,4 @@ class CanJump:
                 self.jump_down = 5
                 self.to_jump = False
                 self.sprite.status = 'idle'
-        self.rect.y = self.rect.y - (10 * (self.jump / 2))
+        self.sprite.rect.y = self.sprite.rect.y - (10 * (self.jump / 2))
