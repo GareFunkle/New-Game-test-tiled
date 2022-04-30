@@ -41,12 +41,13 @@ class MapManager:
 
     def move_jump(self):
         if self.player.to_jump and self.collision_sol:
-            self.player.move_jump()        
+            if self.player.number_jump > 2:
+                self.player.move_jump()         
                 
-
-
     def gravity_game(self):
-        self.player.rect.y += self.gravity[1] + self.resistance[1]
+        self.player.sprite.rect.y += self.gravity[1] + self.resistance[1]
+
+
 
     # positionne mon joueur a la position choisie sur tiled
     def teleport_player(self, name):
@@ -55,12 +56,15 @@ class MapManager:
         self.player.sprite.position[1] = point.y
         self.player.sprite.save_location()
 
+
     def register_map(self, name):
         # charger la carte
         tmx_data = pytmx.util_pygame.load_pygame(f"tile/{name}.tmx")
         map_data = pyscroll.data.TiledMapData(tmx_data)
         map_layer = pyscroll.orthographic.BufferedRenderer(
             map_data, self.screen.get_size())
+    
+
 
         # definir une liste qui va stocker mes collision
         ground = []
@@ -71,10 +75,14 @@ class MapManager:
                     obj.x, obj.y, obj.width, obj.height))
             self.rect = pygame.Rect(obj.x, obj.y, obj.width, obj.height)     
             if self.rect.colliderect(self.player.sprite.rect):
+                print("collision")
                 self.resistance = (0, -10)
                 self.collision_sol = True
 
- 
+            else:
+                self.resistance = (0, 0)
+
+
 
         # dessiner ke groupe de calques
         group = pyscroll.PyscrollGroup(
@@ -99,12 +107,11 @@ class MapManager:
     def draw(self):
         self.get_group().draw(self.screen)
         self.get_group().center(self.player.sprite.rect.center)
-        self.draw_collision()
+        # self.draw_collision()
 
     def update(self):
-        # self.get_group().update()
+        self.get_group().update()
         self.gravity_game()
-        self.check_collision()
-        # self.test_collision()
+        # self.check_collision()
         self.move_jump()
         

@@ -12,7 +12,7 @@ class CanJump:
 
     def move_jump(self):
         if self.to_jump:
-            if self.jump_high >= 10:
+            if self.jump_high >= 20:
                 self.jump_down -= 1
                 self.jump = self.jump_down
                 self.sprite.status = 'jump'

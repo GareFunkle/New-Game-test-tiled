@@ -40,7 +40,7 @@ class Game:
 # boucle du jeu
     def run(self):
         clock = pygame.time.Clock()
-        self.map_manager.get_group().update()
+        # self.map_manager.get_group().update()
         
         running = True
 
