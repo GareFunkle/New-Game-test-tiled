@@ -8,6 +8,7 @@ from Data.Map.sol import Sol
 @dataclass
 class Map:
     name: str
+    walls: list([pygame.Rect])
     ground: list([pygame.Rect])
     group: pyscroll.PyscrollGroup
     tmx_data: pytmx.TiledMap
@@ -30,8 +31,18 @@ class MapManager:
     # verification des types de collision en provenance de tiled
     def check_collision(self):
         for sprite in self.get_group().sprites():
-            if sprite.feet.collidelist(self.get_ground()) > -1:
+            self.gravity_game()
+            if sprite.feet.collidelist(self.get_walls()) > -1:
                 sprite.move_back()
+
+            if sprite.feet.collidelist(self.get_ground()) > -1:
+                self.resistance = (0, -10)
+                self.collision_sol = True
+            else:
+                self.resistance = (0, 0)
+                
+            if self.player.to_jump and self.collision_sol:
+                self.player.move_jump()
 
     def draw_collision(self):
         for collision in self.get_ground():
@@ -39,10 +50,10 @@ class MapManager:
 
 
 
-    def move_jump(self):
-        if self.player.to_jump and self.collision_sol:
-            if self.player.number_jump > 2:
-                self.player.move_jump()         
+    # def move_jump(self):
+    #     if self.player.to_jump and self.collision_sol:
+    #         if self.player.number_jump > 2:
+    #             self.player.move_jump()         
                 
     def gravity_game(self):
         self.player.sprite.rect.y += self.gravity[1] + self.resistance[1]
@@ -67,20 +78,20 @@ class MapManager:
 
 
         # definir une liste qui va stocker mes collision
-        ground = []
+        walls = []
 
         for obj in tmx_data.objects:
             if obj.type == "collision":
-                ground.append(pygame.Rect(
-                    obj.x, obj.y, obj.width, obj.height))
-            self.rect = pygame.Rect(obj.x, obj.y, obj.width, obj.height)     
-            if self.rect.colliderect(self.player.sprite.rect):
-                print("collision")
-                self.resistance = (0, -10)
-                self.collision_sol = True
+                walls.append(pygame.Rect(
+                    obj.x, obj.y, obj.width, obj.height))  
 
-            else:
-                self.resistance = (0, 0)
+                
+        ground = []
+        
+        for obj in tmx_data.objects:
+            if obj.type == "sol":
+                ground.append(pygame.Rect(obj.x, obj.y, obj.width, obj.height))
+                
 
 
 
@@ -90,7 +101,7 @@ class MapManager:
         group.add(self.player.sprite)
 
         # creer un objet map
-        self.maps[name] = Map(name, ground, group, tmx_data)
+        self.maps[name] = Map(name, walls, ground, group, tmx_data)
 
     def get_map(self):
         return self.maps[self.current_map]
@@ -98,6 +109,9 @@ class MapManager:
     def get_group(self):
         return self.get_map().group
 
+    def get_walls(self):
+        return self.get_map().walls
+    
     def get_ground(self):
         return self.get_map().ground
 
@@ -111,7 +125,7 @@ class MapManager:
 
     def update(self):
         self.get_group().update()
-        self.gravity_game()
-        # self.check_collision()
-        self.move_jump()
+        # self.gravity_game()
+        self.check_collision()
+        # self.move_jump()
         

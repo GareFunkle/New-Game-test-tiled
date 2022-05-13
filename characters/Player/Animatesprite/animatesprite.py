@@ -33,8 +33,9 @@ class Player_Sprite(pygame.sprite.Sprite):
 
     def move_back(self):
         self.position = self.old_position
-        self.rect.topleft = self.position
+        self.rect.topleft = self.position.copy()
         self.feet.midbottom = self.rect.midbottom
+        self.update()
 
     def get_image(self, x, y):
         image = pygame.Surface([138, 138])

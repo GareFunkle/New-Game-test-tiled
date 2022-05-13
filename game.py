@@ -10,6 +10,9 @@ class Game:
     def __init__(self):
         # creation de la fenetre du jeu
         self.screen = pygame.display.set_mode((settings.DISPLAY_X, settings.DISPLAY_Y))
+        # self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+
+        
         pygame.display.set_caption(data.GAME_NAME)
 
         # generer un joueur
@@ -23,6 +26,8 @@ class Game:
     #     return screen
 
     def move(self):
+        if self.pressed.get(pygame.K_ESCAPE):
+            pygame.quit()
         if self.pressed.get(pygame.K_RIGHT):
             self.player.move_right()
         if self.pressed.get(pygame.K_LEFT):
@@ -45,10 +50,10 @@ class Game:
         running = True
 
         while running:
-
             self.player.sprite.save_location()
             self.move()
             self.update()
+            # self.map_manager.gravity_game()
             self.map_manager.draw()
 
             # print(self.map_manager.get_ground())
