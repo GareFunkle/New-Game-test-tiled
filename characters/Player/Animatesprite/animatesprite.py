@@ -2,15 +2,14 @@ import pygame
 from Data.Support_Animation.support import import_folder
 
 
-class Player_Sprite(pygame.sprite.Sprite):
+class AnimateSprite(pygame.sprite.Sprite):
 
-    def __init__(self, x, y):
+    def __init__(self, name):
         super().__init__()
-        self.import_character_assets()
+        self.import_character_assets("player")
         self.frame_index = 0
         self.animation_speed = 0.25
         self.image = self.animations['idle'][self.frame_index]
-        # self.image = self.get_image(0, 0)
         self.rect = self.image.get_rect()
 
         self.status = 'idle'
@@ -19,32 +18,10 @@ class Player_Sprite(pygame.sprite.Sprite):
         self.on_ceiling = False
         self.on_left = False
         self.on_right = False
-        self.position = [x, y]
-        # self.image.set_colorkey([255, 255, 255])
-        self.feet = pygame.Rect(0, 0, self.rect.width * 0.5, 138)
-        self.old_position = self.position.copy()
 
-    # sauvegarde la position de mon joueur
-    def save_location(self):
-        self.old_position = self.position.copy()
 
-    def update(self):
-        self.rect.topleft = self.position
-        self.feet.midbottom = self.rect.midbottom
-
-    def move_back(self):
-        self.position = self.old_position
-        self.rect.topleft = self.position.copy()
-        self.feet.midbottom = self.rect.midbottom
-        self.update()
-
-    def get_image(self, x, y):
-        image = pygame.Surface([138, 138])
-        image.blit(self.image, (0, 0), (x, y, 138, 138))
-        return image
-
-    def import_character_assets(self):
-        character_path = 'assets/PLAYER/'
+    def import_character_assets(self, name):
+        character_path = f'assets/{name}/'
         self.animations = {'idle': [], 'run': [],
                            'jump': [], 'attack': [], 'dead': []}
 
@@ -89,3 +66,8 @@ class Player_Sprite(pygame.sprite.Sprite):
 
     def get_rect(self):
         return self.rect
+
+    def get_image(self, x, y, name):
+        image = pygame.Surface([32, 32])
+        image.blit(self.import_character_assets(name), (0, 0), (x, y, 32, 32))
+        return image

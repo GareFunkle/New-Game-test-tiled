@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="159" height="22" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="42">
+<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="159" height="22" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="64">
  <editorsettings>
   <export target="carte.csv" format="csv"/>
  </editorsettings>
@@ -139,16 +139,27 @@
 </data>
  </layer>
  <objectgroup color="#ff96c8" id="6" name="Objects">
-  <object id="1" name="player" x="1153.52" y="210.946">
+  <object id="1" name="player" x="1226.52" y="143.612">
    <point/>
   </object>
-  <object id="15" type="collision" x="4545" y="346" width="544" height="12.5"/>
-  <object id="17" type="collision" x="4559" y="323" width="529.5" height="20"/>
+  <object id="15" type="sol" x="4561.33" y="333.333" width="529" height="12.5"/>
+  <object id="17" type="sol" x="4573.67" y="311" width="515.5" height="20"/>
   <object id="18" type="collision" x="0" y="0" width="3" height="705"/>
   <object id="19" name="sol" type="collision" x="5085" y="0" width="2" height="702.5"/>
   <object id="20" x="5228" y="-724"/>
-  <object id="38" type="collision" x="2.5" y="359" width="661.5" height="13"/>
-  <object id="39" type="collision" x="780" y="359" width="745" height="16"/>
-  <object id="40" type="collision" x="2160.5" y="359" width="2384" height="14"/>
+  <object id="40" type="sol" x="2164.5" y="352" width="2384" height="14"/>
+  <object id="44" type="sol" x="7" y="352" width="655" height="17"/>
+  <object id="45" type="sol" x="783.667" y="352" width="739" height="9"/>
+  <object id="52" type="sol" x="1519" y="672.667" width="644" height="23"/>
+  <object id="53" type="sol" x="660" y="673" width="126" height="16"/>
+  <object id="54" type="collision" x="624" y="381" width="33" height="322"/>
+  <object id="55" type="collision" x="783" y="372" width="64" height="330"/>
+  <object id="56" type="collision" x="1481" y="377" width="23" height="342"/>
+  <object id="57" type="collision" x="2170" y="377" width="37" height="330"/>
+  <object id="58" type="collision" x="4547.83" y="332.167" width="12.5" height="13"/>
+  <object id="59" type="collision" x="4560.17" y="310.5" width="12.5" height="21.5"/>
+  <object id="60" type="sol" x="1619.5" y="194.333" width="447.5" height="13"/>
+  <object id="61" type="sol" x="785.167" y="224.833" width="188" height="14"/>
+  <object id="62" type="sol" x="446.5" y="224.833" width="212.5" height="17"/>
  </objectgroup>
 </map>
