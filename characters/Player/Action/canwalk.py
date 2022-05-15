@@ -2,7 +2,7 @@
 
 class CanWalk:
     # Must be attached to unit
-    def __init__(self, rect, speed_walk=3, speed_run=5):
+    def __init__(self, rect, speed_walk=5, speed_run=5):
         self.rect = rect
         self.speed_walk = speed_walk
         self.speed_run = speed_run

@@ -10,6 +10,7 @@ class Player_Sprite(pygame.sprite.Sprite):
         self.frame_index = 0
         self.animation_speed = 0.25
         self.image = self.animations['idle'][self.frame_index]
+        # self.image = self.get_image(0, 0)
         self.rect = self.image.get_rect()
 
         self.status = 'idle'
@@ -19,8 +20,8 @@ class Player_Sprite(pygame.sprite.Sprite):
         self.on_left = False
         self.on_right = False
         self.position = [x, y]
-        self.image.set_colorkey([0, 0, 0])
-        self.feet = pygame.Rect(0, 0, self.rect.width * 0.5, 12)
+        # self.image.set_colorkey([255, 255, 255])
+        self.feet = pygame.Rect(0, 0, self.rect.width * 0.5, 138)
         self.old_position = self.position.copy()
 
     # sauvegarde la position de mon joueur
@@ -39,7 +40,7 @@ class Player_Sprite(pygame.sprite.Sprite):
 
     def get_image(self, x, y):
         image = pygame.Surface([138, 138])
-        image.blit(self.sprite, (0, 0), (x, y, 138, 138))
+        image.blit(self.image, (0, 0), (x, y, 138, 138))
         return image
 
     def import_character_assets(self):

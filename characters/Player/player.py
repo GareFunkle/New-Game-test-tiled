@@ -10,7 +10,7 @@ class Player(Unit, CanWalk, CanJump, CanAttack):
         Unit.__init__(self, Player_Sprite(0, 0),
                       current_health=100, max_health=100)
 
-        CanWalk.__init__(self, self.rect, speed_walk=3, speed_run=5)
+        CanWalk.__init__(self, self.rect, speed_walk=5, speed_run=5)
         CanJump.__init__(
             self,
             self.rect,
