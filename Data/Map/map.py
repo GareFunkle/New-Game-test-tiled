@@ -34,8 +34,6 @@ class MapManager:
             self.gravity_game()
             if sprite.feet.collidelist(self.get_walls()) > -1:
                 sprite.move_back()
-
-            if sprite.feet.collidelist(self.get_ground()) > -1:
                 self.resistance = (0, -10)
                 self.collision_sol = True
             else:
@@ -124,7 +122,7 @@ class MapManager:
         # self.draw_collision()
 
     def update(self):
-        self.get_group().update()
+        # self.get_group().update()
         # self.gravity_game()
         self.check_collision()
         # self.move_jump()

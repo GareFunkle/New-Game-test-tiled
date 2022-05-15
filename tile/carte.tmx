@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="159" height="22" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="33">
+<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="159" height="22" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="35">
  <editorsettings>
   <export target="carte.csv" format="csv"/>
  </editorsettings>
@@ -139,7 +139,7 @@
 </data>
  </layer>
  <objectgroup color="#ff96c8" id="6" name="Objects">
-  <object id="1" name="player" x="1166.83" y="215.12">
+  <object id="1" name="player" x="1154.19" y="12.279">
    <point/>
   </object>
   <object id="5" type="sol" x="657" y="689" width="127" height="16"/>
